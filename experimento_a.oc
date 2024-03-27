@@ -1,0 +1,50 @@
+% experimento_a.oc - experimento_a
+% Maintainer: Ivan Lopes
+
+% The scale suffixes
+
+u = 1E-6  % micro
+m = 1E-3  % mile
+
+w  = 377
+R  = 5
+R1 = 8
+R2 = 12
+C  = 330*u
+L  = 2.7*m
+
+XC = 1/(w*C)
+XL = w*L
+
+ZL = to_rd(XL,90)
+ZC = to_rd(XC,-90)
+ZR = to_rd(R,0)
+Vi = to_rd(20,0)
+Vo = to_rd(0,0)
+
+Z = [ZL+ZC -ZC;
+    -ZC    ZR+ZC ]
+
+V = [Vi;
+     Vo]
+
+resp = inv(Z)*V
+
+% x = to_pd(resp(1))
+% y = to_pd(resp(2))
+
+disp("====================== x,y:")
+x = resp(1)
+y = resp(2)
+
+disp("======================= iL, iC, IR:")
+iL = x
+iC = x-y
+iR = y
+
+disp("======================= iL, iC, IR:")
+to_pd(iL)
+to_pd(iC)
+to_pd(iR)
+
+disp("fim")
